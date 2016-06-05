@@ -1,0 +1,27 @@
+1.直接在右侧界面点击Priority列，修改Naming Rules的MethodNamingConventions，将Priority改为Information
+  修改Naming Rules的ShortVariable，将Priority改为Information
+  修改Naming Rules的LongVariable，将Priority改为Information
+  修改Controversial Rules的 AtLeastOneConstructor,将Priority改为Information
+  修改Controversial Rules的 OnlyOneReturn,将Priority改为Information
+  修改Optimization Rules的 MethodArgumentCouldBeFinal,将Priority改为Information
+  修改Java Logging Rules的LoggerIsNotStaticFinalRule,将Priority改为Information
+  修改JUnit Rules的TestClassWithoutTestCase,将Priority改为Information
+  修改Controversial Rules的NullAssignment,将Priority改为Information
+  修改Design Rules的NonStaticInitializer,将Priority改为Information
+  修改Design Rules的UseSingleton,将Priority改为Information
+  修改Braces Rules的IfStmtsMustUseBraces,将Priority改为Information
+  选中Code Size Rules的TooManyFields,在界面下部的Rules properties中将Rule properties中的maxfields改为30
+  选中Code Size Rules的ExcessiveParameterList,在界面下部的Rules properties中将Rule properties中的minimum改为30
+  修改所有Migration Rules JUnit4的Priority改为Information
+  修改Security Code Guidelines的MethodReturnsInternalArray,将Priority改为Information
+  修改Security Code Guidelines的ArrayIsStoredDirectly,将Priority改为Information
+2.Preferences->Checkstyle->Configure 
+  点开JavaDoc Comments->Type Javadoc 在右边点中Style Javadoc,点下方的Open,在弹出界面中去掉checkFirstSentence的勾
+  点开Size Violations->Maximum Parameters ，点下方的Open,在弹出界面中修改max为30
+
+Pattern id: EQ_DOESNT_OVERRIDE_EQUALS, type: Eq, category: STYLE
+Overriding EqualsNotSymmetrical
+
+
+
+

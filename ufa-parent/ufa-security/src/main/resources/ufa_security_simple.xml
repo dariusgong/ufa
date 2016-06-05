@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<beans:import resource="classpath*:ufa_security_bean.xml" />
+	<http pattern="/styles/**" security="none" />
+	<http pattern="/images/**" security="none" />
+	<http pattern="/scripts/**" security="none" />
+	<http pattern="/resources/**" security="none" />
+	<http auto-config="false" use-expressions="true" access-decision-manager-ref="accessDecisionManager" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<!-- <intercept-url pattern="/login*" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')" /> <intercept-url pattern='/**' access='ROLE_USER' /> -->
+		<logout logout-success-url="/index" logout-url="/j_spring_security_logout" invalidate-session="true" delete-cookies="JSESSIONID" />
+		<!-- <custom-filter position="FORM_LOGIN_FILTER" ref="preFormLoginCaptchaFilter" / -->
+		<form-login authentication-success-handler-ref="authenticationSuccessHandler" login-page="/login" authentication-failure-url="/login/error"
+			login-processing-url="/j_spring_security_check" />
+		<anonymous enabled="true" granted-authority="ROLE_ANONYMOUS" />
+		<session-management session-authentication-error-url="/login/authentication-error" session-fixation-protection="newSession">
+			<concurrency-control max-sessions="1" expired-url="/login/expired-session" error-if-maximum-exceeded="false" />
+		</session-management>
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+		<!-- <access-denied-handler error-page="/WEB-INF/views/common/error/403.jsp" /> -->
+	</http>
+
+	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled">
+		<!-- <protect-pointcut expression="execution(* com.mycompany.*Service.*(..))" access="ROLE_USER"/> -->
+	</global-method-security>
+
+
+	<!-- 采用多个authentication-provider从不同的表中读取用户信息,要求username在多张表中不能重复,建议前后台采用不能的username命名规则,否则需要手动加锁确保并发insert时的唯一性 -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="daoAuthenticationProvider" /><!-- 需要使用此配置文件的项目自行实现,继承spring的DaoAuthenticationProvider -->
+	</authentication-manager>
+</beans:beans>

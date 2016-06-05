@@ -1,0 +1,12 @@
+<html>
+<body>
+<h3>Hi ${mailModel.username}</h3>
+<div>
+   email message is ${message}.
+   <h1>图片一:</h1>
+	<img src='cid:success1'>
+   <h1>图片二:</h1>
+	<img src='cid:success2'>
+</div>
+</body>
+</html>

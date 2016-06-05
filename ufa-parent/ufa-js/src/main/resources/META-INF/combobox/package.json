@@ -1,0 +1,17 @@
+{
+    "name":"combobox",
+    "version":"1.10.0",
+    "parent":"../package.json",
+    "output":{
+        "jquery.ui.combobox.js":"."
+    },
+    "dependencies":{
+    	"$":"$",
+        "core":"taurus/core/1.10.0/jquery.ui.core",
+        "widget":"taurus/core/1.10.0/jquery.ui.widget",
+        "position":"taurus/position/1.10.0/jquery.ui.position",
+        "menu":"taurus/menu/1.10.0/jquery.ui.menu",
+        "button":"taurus/button/1.10.0/jquery.ui.button",
+        "pinyin":"taurus/pinyin/1.0.0/pinyin"
+    }
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd" version="2.1">
+	<description>Ufa JSP Tag Library</description>
+	<tlib-version>1.2</tlib-version>
+	<short-name>ufa</short-name>
+	<uri>http://www.ufa.org/ufa/tags</uri>
+	<tag>
+		<description>生成基于上下文的Url,自动包含context path</description>
+		<name>url</name>
+		<tag-class>org.ufa.core.web.tag.UrlTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>命名空间,用于区分不同模块或项目</description>
+			<name>namespace</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>常量属性名</description>
+			<name>fieldName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>常量标签</description>
+		<name>constant</name>
+		<tag-class>org.ufa.core.web.tag.ConstantTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>命名空间,用于区分不同模块或项目</description>
+			<name>namespace</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>常量属性名</description>
+			<name>fieldName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>动态打包资源组标签</description>
+		<name>resourceGroup</name>
+		<tag-class>org.ufa.core.web.tag.ResourceGroupTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>需要打包的资源组</description>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<description>动态打包资源标签</description>
+		<name>resource</name>
+		<tag-class>org.ufa.core.web.tag.ResourceTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>需要打包的资源</description>
+			<name>path</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+
+</taglib>

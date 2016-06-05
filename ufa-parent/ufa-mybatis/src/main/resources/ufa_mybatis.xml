@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+	<!-- <bean id="paginationSqlExecutor" class="org.ufa.mybatis.dao.ibatis.ext.PaginationSqlExecutor" /> -->
+	<!-- 依赖ufa-datasource -->
+	<!-- <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"> <property name="configLocations"> 
+		<list> <value>classpath:ufa-mybatis_sqlmap-config.xml</value> </list> </property> <property name="mappingLocations" value="classpath*:/sqlmap/**/*SqlMap.xml" 
+		/> <property name="dataSource" ref="dataSource" /> <property name="lobHandler" ref="lobHandler" /> </bean> -->
+	<bean id="ufa.mybatis.paginationInterceptor" class="org.ufa.mybatis.interceptor.PaginationInterceptor">
+		<property name="dialect" ref="dialect" />
+	</bean>
+	<bean id="ufa.mybatis.sqlSessionFactory" class="org.ufa.mybatis.config.UfaSqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:ufa_mybatis_config.xml" />
+		<property name="failFast" value="true"/>
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:/sqlmap/**/*SqlMap.xml</value>
+				<value>classpath*:/sqlmap/**/*Mapper.xml</value>
+				<value>classpath*:/sqlmap/**/*-mapper.xml</value>
+			</array>
+		</property>
+		<property name="plugins">
+			<array>
+				<ref local="ufa.mybatis.paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	<bean class="org.ufa.mybatis.config.UfaMapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="ufa.mybatis.sqlSessionFactory" />
+	</bean>
+	<bean id="simpleExecutorSqlSession" class="org.ufa.mybatis.spring.UfaSqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0" ref="ufa.mybatis.sqlSessionFactory" />
+		<!-- 注意:当一个方法被调用时,不能有使用不同 ExecutorType的事务正在运行。也要保证在不同的事务中,使用不同执行器来调用 SqlSessionTemplate -->
+		<!-- <constructor-arg index="1" value="BATCH" /> -->
+	</bean>
+	<bean id="batchExecutorSqlSession" class="org.ufa.mybatis.spring.UfaSqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0" ref="ufa.mybatis.sqlSessionFactory" />
+		<!-- 注意:当一个方法被调用时,不能有使用不同 ExecutorType的事务正在运行。也要保证在不同的事务中,使用不同执行器来调用 SqlSessionTemplate -->
+		<constructor-arg index="1" value="BATCH" />
+	</bean>
+	<!-- 依赖上述 batchExecutorSqlSession-->
+	<bean class="org.ufa.mybatis.annotation.BatchMappserAnnotationBeanPostProcessor">
+		<property name="batchExecutorSqlSessionBeanName" value="batchExecutorSqlSession"/>
+	</bean>
+	<!-- <bean id="reuseExecutorSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="ufa-mybatis.sqlSessionFactory" />
+		注意:当一个方法被调用时,不能有使用不同 ExecutorType的事务正在运行。也要保证在不同的事务中,使用不同执行器来调用 SqlSessionTemplate
+		<constructor-arg index="1" value="REUSE" />
+	</bean> -->
+</beans>

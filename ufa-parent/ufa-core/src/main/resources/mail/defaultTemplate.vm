@@ -1,0 +1,15 @@
+<html>
+<body>
+<h3>Hi 大流士 你好!</h3>
+<div>
+   Your email address is <a href="mailto:${mailModel.emailAddress}">${mailModel.emailAddress}</a>.
+   <p>UserName : ${mailModel.exceptionUsername}</p>
+   <p>UserIP : ${mailModel.userIP}</p>
+   <p>User RequestURL : ${mailModel.requestURL}</p>
+   <div>
+   	Caused by:${mailModel.message}
+   </div>
+   <p>测试中文乱码问题！</p>
+</div>
+</body>
+</html>

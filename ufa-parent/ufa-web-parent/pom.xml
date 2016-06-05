@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ufa</groupId>
+		<artifactId>ufa-parent</artifactId>
+		<version>0.0.4-SNAPSHOT</version>
+	</parent>
+	<artifactId>ufa-web-parent</artifactId>
+	<packaging>pom</packaging>
+	<properties>
+		<tiles.version>3.0.4</tiles.version>
+		<war.packaging.excludes>**.svn/**</war.packaging.excludes>
+		<maven.webapp.directory>${project.build.directory}/${project.build.finalName}</maven.webapp.directory>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.ufa</groupId>
+			<artifactId>ufa-core</artifactId>
+			<version>${ufa.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-js</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springSecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>org.mybatis</groupId> <artifactId>mybatis</artifactId> 
+			</dependency> <dependency> <groupId>org.mybatis</groupId> <artifactId>mybatis-spring</artifactId> 
+			</dependency> -->
+		<!-- Apache Tiles -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${tiles.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>${tiles.version}</version>
+		</dependency>
+		<!-- org.springframework.web.servlet.view.json.MappingJacksonJsonView依赖 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<!-- <dependency> <groupId>javax.servlet.jsp</groupId> <artifactId>jsp-api</artifactId> 
+			<version>2.1</version> <scope>provided</scope> </dependency> <dependency> 
+			<groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> <version>2.5</version> 
+			<scope>provided</scope> </dependency> -->
+
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profile.name>dev</profile.name>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<filters>
+					<filter>${filters.base.path.main}/dev-filter.properties</filter>
+				</filters>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<workDirectory>${maven.webapp.directory}/work</workDirectory>
+						</configuration>
+					</plugin>
+					<!-- <plugin> <groupId>org.ufa</groupId> <artifactId>websources-plugin</artifactId> 
+						<version>0.0.1</version> <configuration> <webappDirectory>${maven.webapp.directory}</webappDirectory> 
+						</configuration> <executions> <execution> <goals> <goal>cleanup-jars</goal> 
+						</goals> </execution> </executions> </plugin> -->
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>c3p0</groupId>
+					<artifactId>c3p0</artifactId>
+					<version>0.9.1.2</version>
+					<scope>compile</scope>
+				</dependency>
+				<!--<dependency>
+					<groupId>commons-dbcp</groupId>
+					<artifactId>commons-dbcp</artifactId>
+					<version>1.4</version>
+					<scope>compile</scope>
+				</dependency>
+				 <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc14</artifactId> 
+					<version>10.2.0.4.0</version> <scope>provided</scope> </dependency> -->
+			</dependencies>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profile.name>test</profile.name>
+			</properties>
+			<build>
+				<filters>
+					<filter>${filters.base.path.main}/test-filter.properties</filter>
+				</filters>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<!-- <configuration>
+							<classifier>test</classifier>
+						</configuration> -->
+					</plugin>
+					<plugin>
+						<artifactId>maven-install-plugin</artifactId>
+						<!-- <configuration>
+							<classifier>test</classifier>
+						</configuration> -->
+					</plugin>
+					<plugin>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>c3p0</groupId>
+					<artifactId>c3p0</artifactId>
+					<version>0.9.1.2</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>ci</id>
+			<properties>
+				<war.packaging.excludes>WEB-INF/lib/**</war.packaging.excludes>
+			</properties>
+			<build>
+				<filters>
+					<filter>${filters.base.path.main}/ci-filter.properties</filter>
+				</filters>
+			</build>
+		</profile>
+		<profile>
+			<id>stg</id>
+			<properties>
+				<profile.name>stg</profile.name>
+			</properties>
+			<build>
+				<filters>
+					<filter>${filters.base.path.main}/stg-filter.properties</filter>
+				</filters>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<!-- <configuration>
+							<classifier>stg</classifier>
+						</configuration> -->
+					</plugin>
+					<plugin>
+						<artifactId>maven-install-plugin</artifactId>
+						<!-- <configuration>
+							<classifier>stg</classifier>
+						</configuration> -->
+					</plugin>
+					<plugin>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>prd</id>
+			<properties>
+				<profile.name>prd</profile.name>
+			</properties>
+			<build>
+				<filters>
+					<filter>${filters.base.path.main}/prd-filter.properties</filter>
+				</filters>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<!-- <configuration>
+							<classifier>prd</classifier>
+						</configuration> -->
+					</plugin>
+					<plugin>
+						<artifactId>maven-install-plugin</artifactId>
+						<!-- <configuration>
+							<classifier>prd</classifier>
+						</configuration> -->
+					</plugin>
+					<plugin>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>c3p0</groupId>
+					<artifactId>c3p0</artifactId>
+					<version>0.9.1.2</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+	<build>
+		<finalName>${project.artifactId}-${profile.name}</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.appfuse.plugins</groupId>
+										<artifactId>maven-warpath-plugin</artifactId>
+										<versionRange>[2.1.0-M3,)</versionRange>
+										<goals>
+											<goal>add-classes</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+										<!-- <ignore /> -->
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>build-helper-maven-plugin</artifactId>
+										<versionRange>[1.7,)</versionRange>
+										<goals>
+											<goal>add-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+										<!-- <ignore /> -->
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<useCache>false</useCache>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+						</archive>
+						<!-- 必须指定,否则默认会变成在target/war/work 导致被打包进war文件,指定后为target/work -->
+						<workDirectory>${project.build.directory}/work</workDirectory>
+						<webappDirectory>${maven.webapp.directory}</webappDirectory>
+						<!-- 此WAR只用于被其他项目依赖,所以发布时不需要打包其自身依赖的JAR -->
+						<packagingExcludes>${war.packaging.excludes},WEB-INF/lib/**.warpath.jar,WEB-INF/classes/*-filter.properties</packagingExcludes>
+						<!-- 从源文件目录下copy至build目录下时设置的排除.注意,此时并不解析依赖 -->
+						<warSourceExcludes>WEB-INF/classes/*-filter.properties,**.svn/**</warSourceExcludes>
+						<archive>
+							<manifest>
+								<addClasspath>false</addClasspath><!-- 设置成false,避免在jboss7.1这类OSGI环境下出现警告 -->
+								<classpathPrefix>lib/</classpathPrefix>
+							</manifest>
+						</archive>
+						<dependentWarExcludes>**/web.xml,WEB-INF/lib/*,**/logback.xml,**/logback-test.xml,**/jdbc.properties,**/ehcache.properties</dependentWarExcludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin><!-- 解决ecilpse中每次更新filter properties文件后,都要手动更改对应的resource后才能生效的问题 
+					.会properties文件被复制到web-info的classes目录下,需要在maven-war-plugin插件中手动排除 -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/main/filters</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin><!-- 注意不用设置type为warpath即可传递war的依赖,warpath只是用于打包war的classes -->
+				<groupId>org.appfuse.plugins</groupId>
+				<artifactId>maven-warpath-plugin</artifactId>
+				<version>2.1.0</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>add-classes</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration><!-- below WEB-INF/classes -->
+					<warpathExcludes>**/logback.xml,**/logback-test.xml,**/jdbc.properties,**/jdbc_test.properties,**/email.properties,**/ehcache.properties,**/ehcache.xml</warpathExcludes>
+					<!-- 避免运行mvn clean时被清除,一旦有新版本,运行warpath:add-classes 或mvn package都会自动更新warpath.jar的版本 -->
+					<workDirectory>${project.basedir}/warpath</workDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype-public</id>
+			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

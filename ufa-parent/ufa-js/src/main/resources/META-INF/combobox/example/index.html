@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" href="../../style/jquery.css" />
+    <style>
+        .ui-combobox {
+            position: relative;
+            display: inline-block;
+        }
+        .ui-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+            /* support: IE7 */
+            *height: 1.7em;
+            *top: 0.1em;
+        }
+        .ui-combobox-input {
+            margin: 0;
+            padding: 0.3em;
+        }
+        .ui-button-icon-only .ui-icon {
+            left: 50%;
+            margin-left: 5px;
+        }
+        .ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon {
+            top: 50%;
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+        #format { margin-top: 2em; }
+        .width250 {width: 250px;}
+    </style>
+</head>
+<body>
+<div class="container mt70">
+    <div class="ui-widget">
+        <label>Your preferred programming language: </label>
+        <select id="combobox">
+            <option value="">Select one...</option>
+            <option value="ActionScript" selected>ActionScript</option>
+            <option value="AppleScript">AppleScript</option>
+            <option value="Asp">Asp</option>
+            <option value="BASIC">BASIC</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="Clojure">Clojure</option>
+            <option value="COBOL">COBOL</option>
+            <option value="ColdFusion">ColdFusion</option>
+            <option value="Erlang">Erlang</option>
+            <option value="Fortran">Fortran</option>
+            <option value="Groovy">Groovy</option>
+            <option value="Haskell">Haskell</option>
+            <option value="Java">Java</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Lisp">Lisp</option>
+            <option value="Perl">Perl</option>
+            <option value="PHP">PHP</option>
+            <option value="Python">Python</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Scala">Scala</option>
+            <option value="Scheme">Scheme</option>
+            <option value="你好">你好</option>
+            <option value="我好">我好</option>
+            <option value="大家好">大家好</option>
+            <option value="他好">他好</option>
+            <option value="我也好">我也好</option>
+            <option value="你懂得">你懂得</option>
+        </select>
+    </div>
+    <button id="toggle">Show underlying select</button>
+
+    <div class="demo-description">
+        <p>A custom widget built by composition of Autocomplete and Button. You can either type something into the field to get filtered suggestions based on your input, or use the button to get the full list of selections.</p>
+        <p>The input is read from an existing select-element for progressive enhancement, passed to Autocomplete with a customized source-option.</p>
+        <p>This is not a supported or even complete widget. Its purely for demoing what autocomplete can do with a bit of customization. <a href="http://www.learningjquery.com/2010/06/a-jquery-ui-combobox-under-the-hood">For a detailed explanation of how the widget works, check out this Learning jQuery article.</a></p>
+    </div>
+</div>
+<script type="text/javascript" src="../../seajs/2.0.0/sea.js"></script>
+<script type="text/javascript">
+    seajs.config({
+                     alias:{
+                         'jquery':'jquery/1.9.1/jquery.js'
+                     },
+                     preload : [ 'jquery']
+                 });
+    seajs.use('./index.js');
+</script>
+</body>
+</html>
