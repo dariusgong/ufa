@@ -1,8 +1,0 @@
-{
-    "name":"pinyin",
-    "version":"1.0.0",
-    "parent":"../package.json",
-    "output":{
-        "pinyin.js":"."
-    }
-}

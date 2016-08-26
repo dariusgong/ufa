@@ -1,8 +1,0 @@
-{
-    "name":"moment",
-    "version":"1.7.2",
-    "parent":"../package.json",
-    "output":{
-        "moment.js":"."
-    }
-}
